@@ -1,0 +1,2 @@
+# talks
+Resources and outlines.
