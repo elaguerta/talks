@@ -6,7 +6,7 @@ Portland Python User Group Meetup
 
 #### 1.  If a secret has been committed, consider it pwned.
 - Orphaned commits 
-![orphaned commits by julia evans](images/orphaned_commits.jpg)
+![orphaned commits by julia evans](images/orphaned_commits.jpeg)
 Julia Evans, https://wizardzines.com/comics/orphan-commits/
 - [It only takes the bad guys 1 minute](https://www.comparitech.com/blog/information-security/github-honeypot/)
 
