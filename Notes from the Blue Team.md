@@ -6,22 +6,22 @@ Portland Python User Group Meetup
 
 #### 1.  If a secret has been committed, consider it pwned.
 - Orphaned commits 
-![](images/Pasted image 20240827214234.jpg)
+![orphaned commits by julia evans](images/orphaned_commits.jpg)
 Julia Evans, https://wizardzines.com/comics/orphan-commits/
 - [It only takes the bad guys 1 minute](https://www.comparitech.com/blog/information-security/github-honeypot/)
 
 #### 2. Hashing != encryption. Encryption != privacy. 
 
 - Webhook signing with a shared secret
-![](images/Pasted image 20240829042754.png)
+![](images/webhook_signing.png)
 (https://hookdeck.com/webhooks/guides/how-to-implement-sha256-webhook-signature-verification)
 
 - Document signing with asymmetric keys
-![](images/Pasted image 20240829045530.png)
+![](images/document_signing.png)
 (https://sergioprado.blog/asymmetric-key-encryption-and-digital-signatures-in-practice/)
 
 - Symmetric key encryption
-![](images/Pasted image 20240829040453.png)
+![](images/symmetric_keys.png)
 (By MarcT0K (icons by JGraph) - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=128651167)
 
 | cryptography | direction                                                     | speed   | secrets?                                                                             | Decryptable?                                                                                         | Functions                         | applications                                                                                                                       |
@@ -101,8 +101,8 @@ jobs:
 	
 3. Things to do
 	Review [Security Hardening for GitHub Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions) best practices written by GitHub. There are a lot. Here are some of the highest impact:
-	- Whitelist actions![](images/Pasted image 20240828142237.png)
-	- Require approval for outside collaborators (fork PRs) ![](images/Pasted image 20240828142455.png)
+	- Whitelist actions![whitelist actions](images/whitelist_actions.png)
+	- Require approval for outside collaborators (fork PRs) ![](images/approve_fork_prs.png)
 	- Be wary of any integrations that run Actions on forks
 		- For example, [CircleCI](https://nathandavison.com/blog/shaking-secrets-out-of-circleci-builds)
 	- Save credentials as a Repository or Organization Secret
@@ -125,7 +125,7 @@ run: |
 #### 4. The top 4 initial vectors in 2023 were: exploit, phishing, prior compromise, and stolen credentials. 
 - What does that mean for devs?
 
-![](images/Pasted image 20240826215713.png)
+![initial vectors 2023](images/inital_vectors.png)
 [Google Mandiant Trends 2024](https://cloud.google.com/security/resources/m-trends?hl=en)
 
 ---
@@ -133,7 +133,7 @@ run: |
 #### In your development process
 - [ ] Do a STRIDE [threat model](https://en.wikipedia.org/wiki/STRIDE_model) for every new feature.
 
-![](images/Pasted image 20240828190015.png)
+![stride](images/stride.png)
 - [ ] Establish logging standards as part of code quality standards.
 - [ ] Do regular threat models of your CI/CD and publishing lifecyle
 #### In your source code management
@@ -185,7 +185,7 @@ run: |
 - [ ] Learn the vocabulary of security properties
 	- [STRIDE](https://en.wikipedia.org/wiki/STRIDE_model) plus [least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege), [deny by default](https://en.wikipedia.org/wiki/Principle_of_least_privilege) 
 	- [Others from the OWASP development guide](https://github.com/OWASP/DevGuide/blob/master/02-Design/01-Principles%20of%20Security%20Engineering.md)
-![](images/Pasted image 20240828190015.png)
+![stride](images/stride.png)
 
 ---
 ## IV. What experienced devs can do to keep growing
