@@ -168,10 +168,10 @@ run: |
 	1. [Snyk Advisor](https://snyk.io/advisor/python)
 	2. [GitHub Vulnerability Advisories](https://github.com/advisories)
 	3. Docker Hub, [for example](https://hub.docker.com/layers/library/ubuntu/rolling/images/sha256-99b4265f3384d072acdc008cdb971a6b89869faa8c5e31580d7ed3532750ae00?context=explore)
-	4. *Read the source code!
+	4. Read the source code!
 	5. Prefer pinning SHAs for anything third party, avoid floating tags or releases like `latest`
 		1. Especially [GitHub Actions](https://securitylab.github.com/resources/github-actions-building-blocks/) 
-	6. Read the source code!
+	6. *Read the source code!*
 - [ ] Incorporate threat model mitigations into your tests.
 
 #### Apply to all of the above
@@ -184,10 +184,12 @@ run: |
 	- Design your software for least privilege.
 - [ ] Minimize surface area
 	- Simplify architecture to minimize public exposure 
-		- CAVEAT: beware “walled gardens”
-	- Simplify code
+		- CAVEAT: beware “walled gardens”.
+			- Is there a gate that if compromised would give a malicious actor keys to the whole kingdom?
+   			- Is there a large area of your architecture protected only by one perimeter? 	
+I	- Simplify code
 	- Simplify processes to limit possible actions
-	- Decomm unused services ruthlessly 
+	- Decom unused services ruthlessly 
 	- Don’t rely on “security through obscurity”
 
 ---
@@ -198,7 +200,7 @@ run: |
 - [ ] Jump around the labs on [Portswigger’s Web Security Academy](https://portswigger.net/web-security) 
 	- Start with Access Control, Authentication, SQL Injection, OAuth, and JWT
 - [ ] Practice [threat modeling](https://en.wikipedia.org/wiki/STRIDE_model) whenever you can
-- [ ] *Focus on craft: clean code, design patterns, good documentation
+- [ ] Focus on craft: clean code, design patterns, good documentation
 - [ ] Learn the vocabulary of security properties
 	- [STRIDE](https://en.wikipedia.org/wiki/STRIDE_model) plus [least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege), [deny by default](https://en.wikipedia.org/wiki/Principle_of_least_privilege) 
 	- [Others from the OWASP development guide](https://github.com/OWASP/DevGuide/blob/master/02-Design/01-Principles%20of%20Security%20Engineering.md)
