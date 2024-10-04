@@ -1,6 +1,7 @@
-Elaine Laguerta, Senior Security Engineer, New Relic
-August 29, 2024
-Portland Python User Group Meetup
+# Notes from the Blue Team
+Elaine Laguerta, Senior Security Engineer, New Relic  
+August 29, 2024  
+Portland Python User Group Meetup  
 
 ## I. Things you should know
 
@@ -12,17 +13,18 @@ Julia Evans, https://wizardzines.com/comics/orphan-commits/
 
 #### 2. Hashing != encryption. Encryption != privacy. 
 
-- Webhook signing with a shared secret
+- **Webhook signing with a shared secret**: Hashed, but not encrypted
+  - If delivered over https, contents will be encrypted, but only thanks to TLS, not the hash!
 ![](images/webhook_signing.png)
-(https://hookdeck.com/webhooks/guides/how-to-implement-sha256-webhook-signature-verification)
+[from hookdeck.com](https://hookdeck.com/webhooks/guides/how-to-implement-sha256-webhook-signature-verification)
 
-- Document signing with asymmetric keys
+- **Document signing with asymmetric keys**: Encrypted, but not private. 
 ![](images/document_signing.png)
-(https://sergioprado.blog/asymmetric-key-encryption-and-digital-signatures-in-practice/)
+[from sergio prado](https://sergioprado.blog/asymmetric-key-encryption-and-digital-signatures-in-practice/)
 
-- Symmetric key encryption
+- **Symmetric key encryption**: Encrypted and private (as long as key remains secret). 
 ![](images/symmetric_keys.png)
-(By MarcT0K (icons by JGraph) - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=128651167)
+[By MarcT0K, icons by JGraph, - Own work, CC BY-SA 4.0](https://commons.wikimedia.org/w/index.php?curid=128651167)
 
 | cryptography | direction                                                     | speed   | secrets?                                                                             | Decryptable?                                                                                         | Functions                         | applications                                                                                                                       |
 | ------------ | ------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -66,8 +68,13 @@ jobs:
       - run: |
          curl -X POST -H "Authorization: Token ${{ secrets.BOT_TOKEN }}" -d '{"labels": ["New Issue"]}' ${{ github.event.issue.url }}/labels
 ```
+  - Answer:  You can enter an issue title or description that will escape the echo and run an arbitrary shell command! 
+	```
+	echo "ISSUE TITLE: ${{github.event.issue.title}}"
+	echo "ISSUE DESCRIPTION: ${{github.event.issue.body}}"
+	```
 
-
+How about thtis one?
 ```yml
 # by Nathan Davidson, https://nathandavison.com/blog/github-actions-and-the-threat-of-malicious-pull-requests
 
@@ -91,6 +98,12 @@ jobs:
         env:
           SOME_SECRET: ${{ secrets.SOME_SECRET }}
 ```
+  - Answer:  `pull_request_target` combined with a `checkout` of the `pull_request.head.ref`
+ 	- `pull_request_target` provides a read/write token to the target repositorty AND access to the target repo's secrets
+  	-  Checking out the untrusted PR's code with `pull_request.head.ref` means that the workflow will be run in the context of the untrusted PR's code. This code can take advantage of calls to install or build, for example, introducing a malciious package in `requirements.txt` that will then be pulled into the workflow's file system via `pip install`. 	 
+	```
+	pip install -r requirements.txt
+	```
 
 2. Things to avoid:
 	- [Untrusted input](https://securitylab.github.com/resources/github-actions-untrusted-input/)
@@ -123,9 +136,13 @@ run: |
 ```
 	
 #### 4. The top 4 initial vectors in 2023 were: exploit, phishing, prior compromise, and stolen credentials. 
-- What does that mean for devs?
+- As software developers, which of these is in our scope of control?
+- Code scanning sucks, but the thing that gives attackers an initial foothold is likely to be a known CVE.
+- The next most likely footholds are all  "boring" i.e. not some sophisiticated technology: a phishing email, credentials from a data breach of some other company, or persistence from prior compromise.
+  - Not only are these all boring - none of these are things you can reasonably be expected to influence or mitigate as a software developer.
+  - Do your best to eliminate known CVEs, and build your software to provide resilience to the boring footholds. 
 
-![initial vectors 2023](images/inital_vectors.png)
+![initial vectors 2023](images/initial_vectors.png)
 [Google Mandiant Trends 2024](https://cloud.google.com/security/resources/m-trends?hl=en)
 
 ---
